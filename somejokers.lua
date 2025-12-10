@@ -14,29 +14,16 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 })
 
-local NFS = require("nativefs")
-to_big = to_big or function(a) return a end
-lenient_bignum = lenient_bignum or function(a) return a end
+local JOKERS ={
+    "uptheranks",
+    "extendedplay"
+}
 
-local jokerIndexList = {1}
-
-local function load_jokers_folder()
-    local mod_path = SMODS.current_mod.path
-    local jokers_path = mod_path .. "/jokers"
-    local files = NFS.getDirectoryItemsInfo(jokers_path)
-    for i = 1, #jokerIndexList do
-        local file_name = files[jokerIndexList[i]].name
-        if file_name:sub(-4) == ".lua" then
-            assert(SMODS.load_file("jokers/" .. file_name))()
-        end
+local function load_jokers()
+    for _, name in ipairs(JOKERS) do
+        local path = "jokers/"..name..".lua"
+        assert(SMODS.load_file(path))()
     end
 end
 
-load_jokers_folder()
-
-SMODS.ObjectType({
-    key = "some_jokers",
-    cards = {
-        ["j_somejokers_uptheranks"] = true
-    },
-})
+load_jokers()

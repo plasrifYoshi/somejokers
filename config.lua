@@ -1,0 +1,4 @@
+return {
+    disabled_jokers = {}
+}
+

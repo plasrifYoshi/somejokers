@@ -7,9 +7,10 @@ SMODS.Joker{ --Up the Ranks
     loc_txt = {
         ['name'] = 'Up the Ranks',
         ['text'] = {
-            [1] = 'Increases rank of',
-            [2] = 'first played card',
-            [3] = 'by {C:attention}1{} when scored'
+            [1] = 'If {C:attention}first hand{} of round',
+            [2] = 'has only {C:attention}1{} card,',
+            [3] = 'increase its rank',
+            [4] = 'by {C:attention}1{} when scored'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -33,7 +34,12 @@ SMODS.Joker{ --Up the Ranks
     atlas = 'Jokers',
     
     calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
+    if context.first_hand_drawn and not context.blueprint then
+            local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+            juice_card_until(card, eval, true)
+    end
+    if context.individual and context.cardarea == G.play 
+    and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
         local other_card = context.other_card
         if other_card == context.scoring_hand[1] then
             local was_debuffed = other_card.debuff

@@ -19,7 +19,8 @@ SMODS.Atlas({
 
 local SJ_JOKERS ={
     "uptheranks",
-    "extendedplay"
+    "extendedplay",
+    "diver"
 }
 
 local function load_jokers()

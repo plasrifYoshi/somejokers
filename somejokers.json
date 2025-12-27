@@ -7,7 +7,7 @@
   "description": "just some jokers",
   "prefix": "somejokers",
   "main_file": "somejokers.lua",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "priority": 0,
   "badge_colour": "333399",
   "badge_text_colour": "FFFFFF",
